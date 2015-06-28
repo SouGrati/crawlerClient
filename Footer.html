@@ -1,0 +1,54 @@
+<script>
+function showHint() {
+ var xmlhttp = new XMLHttpRequest();
+ xmlhttp.onreadystatechange = function() {
+  if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+    document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+  }
+}
+xmlhttp.open("GET", "index.php", true);
+
+xmlhttp.send();
+
+}
+</script>
+<script
+src="http://maps.googleapis.com/maps/api/js">
+</script>
+
+<script>
+function initialize(lng,lat) { 
+  $('modalMap').modal() ;
+  var mapProp = {
+    center:new google.maps.LatLng(lng,lat),
+    zoom:20,
+    mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+  var center=new google.maps.LatLng(lng,lat);
+  var map=new google.maps.Map(document.getElementById("googleMap"), mapProp);
+  google.maps.event.addDomListener(window, 'load', initialize);
+  var marker = new google.maps.Marker({
+    position: center,
+    map: map
+  });
+  $('#modalMap').on('shown', function () {
+   google.maps.event.trigger(map, 'resize');
+   map.setCenter(new google.maps.LatLng(lng,lat));
+ },0);
+  gmap.checkResize();
+  google.maps.event.trigger(map, 'resize');
+map.setZoom( map.getZoom() );
+}
+
+</script>
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- Js files for dataTable-->
+<script src="bower_components/dataTables/js/jquery.dataTables.min.js"></script>
+</body>
+</html>
